@@ -11,7 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SpringBootConsumerApplicationTests {
 
-	@Reference(url = "dubbo://127.0.0.1:20880")
+//	@Reference(url = "dubbo://127.0.0.1:20880")
+	@Reference
 	private AccountService accountService;
 
 

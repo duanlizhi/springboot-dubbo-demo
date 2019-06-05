@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-    @Reference(url = "dubbo://127.0.0.1:20880")
+    @Reference
     private AccountService accountService;
 
     @RequestMapping("/test")
