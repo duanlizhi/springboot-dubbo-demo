@@ -1,51 +1,38 @@
-package com.opay.service;
+package com.opay.dao;
 
 import com.opay.entity.AccountDo;
+import org.springframework.dao.DataAccessException;
 
 /**
  * <dl>
  * <dt><span class="strong">类说明:</span></dt>
- * <dd>账户操作service接口定义</dd>
+ * <dd>账户信息交互dao接口</dd>
  * </dl>
  * <dl>
  * <dt><span class="strong">创建时间:</span></dt>
- * <dd>2019-06-05 10:52</dd>
+ * <dd>2019-06-05 14:49</dd>
  * </dl>
  *
  * @author duan_lizhi
  * @since 1.0
  */
-public interface AccountService {
+public interface AccountDao {
     /**
      *
      * <dl>
      * <dt><span class="strong">方法说明:</span></dt>
-     * <dd>测试dubbo 保存账户信息</dd>
+     * <dd>保存账户信息接口</dd>
      * </dl>
      * <dl><dt><span class="strong">创建时间:</span></dt>
-     * <dd> 2019-06-05 10:58 </dd></dl>
-     * <dl><dt><span class="strong">author:</span></dt>
-     * <dd> duan_lizhi</dd></dl>
-     * </dl>
-     * @param name 名称
-     * @return boolean
-     */
-    Boolean saveAccount(String name);
-    /**
-     *
-     * <dl>
-     * <dt><span class="strong">方法说明:</span></dt>
-     * <dd>保存账户信息</dd>
-     * </dl>
-     * <dl><dt><span class="strong">创建时间:</span></dt>
-     * <dd> 2019-06-05 14:43 </dd></dl>
+     * <dd> 2019-06-05 14:51 </dd></dl>
      * <dl><dt><span class="strong">author:</span></dt>
      * <dd> duan_lizhi</dd></dl>
      * </dl>
      * @param accountDo 账户数据对象
-     * @return boolean
+     * @throws DataAccessException
+     * @return void
      */
-    Boolean save(AccountDo accountDo);
+    void save(AccountDo accountDo) throws DataAccessException;
     /**
      *
      * <dl>
@@ -53,12 +40,13 @@ public interface AccountService {
      * <dd>修改账户信息</dd>
      * </dl>
      * <dl><dt><span class="strong">创建时间:</span></dt>
-     * <dd> 2019-06-05 14:43 </dd></dl>
+     * <dd> 2019-06-05 14:52 </dd></dl>
      * <dl><dt><span class="strong">author:</span></dt>
      * <dd> duan_lizhi</dd></dl>
      * </dl>
      * @param accountDo 账户数据对象
-     * @return boolean
+     * @throws DataAccessException
+     * @return void
      */
-    Boolean update(AccountDo accountDo);
+    void updateById(AccountDo accountDo) throws DataAccessException;
 }

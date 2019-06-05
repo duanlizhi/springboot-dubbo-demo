@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="springboot-opay-provider" />
+        <module name="common-service" />
         <module name="demo" />
         <module name="springboot-dubbo-consumer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="common-service" target="1.5" />
       <module name="demo" target="1.8" />
       <module name="springboot-dubbo-consumer" target="1.8" />
       <module name="springboot-opay-provider" target="1.8" />

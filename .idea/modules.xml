@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/common-service/common-service.iml" filepath="$PROJECT_DIR$/common-service/common-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-opay-consumer/springboot-dubbo-consumer.iml" filepath="$PROJECT_DIR$/springboot-opay-consumer/springboot-dubbo-consumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/springboot-dubbo-demo.iml" filepath="$PROJECT_DIR$/.idea/springboot-dubbo-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-opay-provider/springboot-opay-provider.iml" filepath="$PROJECT_DIR$/springboot-opay-provider/springboot-opay-provider.iml" />

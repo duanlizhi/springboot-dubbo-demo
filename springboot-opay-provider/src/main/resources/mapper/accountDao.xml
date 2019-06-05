@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.opay.dao.AccountDao">
+    <insert id="save" parameterType="com.opay.entity.AccountDo">
+        insert into account (name,id_card,nick_name,mobile_number,balance)
+        values (#{name},#{idCard},#{nickName},#{mobileNumber},#{balance})
+    </insert>
+    <update id="updateById" parameterType="com.opay.entity.AccountDo">
+        update account
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName},
+            </if>
+            <if test="mobileNumber != null">
+                mobile_number = #{mobileNumber},
+            </if>
+            <if test="balance != null">
+                balance = #{balance}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

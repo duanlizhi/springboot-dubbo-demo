@@ -8,6 +8,7 @@
       <list>
         <option value="$PROJECT_DIR$/springboot-opay-provider/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-opay-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/common-service/pom.xml" />
       </list>
     </option>
   </component>
