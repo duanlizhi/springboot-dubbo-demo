@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/springboot-opay-consumer/springboot-dubbo-consumer.iml" filepath="$PROJECT_DIR$/springboot-opay-consumer/springboot-dubbo-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/springboot-dubbo-demo.iml" filepath="$PROJECT_DIR$/.idea/springboot-dubbo-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-opay-provider/springboot-opay-provider.iml" filepath="$PROJECT_DIR$/springboot-opay-provider/springboot-opay-provider.iml" />
+    </modules>
+  </component>
+</project>
