@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.opay.dao.BankCardDao">
+    <resultMap id="bankCardResultMap" type="com.opay.entity.BankCardDo">
+        <result column="id" property="id"></result>
+        <result column="bank_name" property="bankName"></result>
+        <result column="card_number" property="cardNumber"></result>
+        <result column="mobile_number" property="mobileNumber"></result>
+        <result column="account_id" property="accountId"></result>
+        <result column="gmt_create" property="gmtCreate"></result>
+        <result column="gmt_modified" property="gmtModified"></result>
+    </resultMap>
+
+    <insert id="saveAndReturnId" useGeneratedKeys="true" keyProperty="id" parameterType="com.opay.entity.BankCardDo">
+        insert into bank_card(bank_name,card_number,mobile_number,account_id)
+            values (#{bankName},#{cardNumber},#{mobileNumber},#{accountId})
+    </insert>
+
+    <update id="updateById" parameterType="com.opay.entity.BankCardDo">
+        update bank_card
+            <set>
+                <if test="bankCard != null">
+                    bank_card = #{bankCard},
+                </if>
+                <if test="cardNumber != null">
+                    card_number = #{cardNumber},
+                </if>
+                <if test="mobileNumber != null">
+                    mobile_number = #{mobileNumber},
+                </if>
+                <if test="accountId != null">
+                    account_id = #{accountId}
+                </if>
+            </set>
+            where id = #{id}
+    </update>
+
+    <delete id="deleteBankCard">
+        DELETE FROM bank_card WHERE id = #{bankCardId}
+    </delete>
+
+    <select id="listBankCard" resultMap="bankCardResultMap">
+        SELECT bc.id,bc.bank_name,bc.card_number,bc.gmt_create
+            FROM
+            bank_card bc
+            LEFT JOIN account ac ON ac.id = bc.account_id
+            <where>
+                <if test="idCard != null">
+                    ac.id_card = #{idCard}
+                </if>
+                <if test="accountId != null">
+                    and ac.id = #{accountId}
+                </if>
+            </where>
+    </select>
+    
+    <select id="listBankCardByCardInfo" parameterType="com.opay.entity.BankCardDo" resultMap="bankCardResultMap">
+        SELECT bc.id,bc.bank_name,bc.card_number,bc.gmt_create
+            FROM
+            bank_card bc
+            <where>
+                <if test="accountId != null">
+                    bc.account_id = #{accountId}
+                </if>
+                <if test="cardNumber != null">
+                    and card_number = #{cardNumber}
+                </if>
+            </where>
+    </select>
+</mapper>

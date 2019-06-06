@@ -7,7 +7,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -29,7 +28,7 @@ public class AccountDo implements Serializable {
     /**
      * 主键id
      */
-    private BigInteger id;
+    private Long id;
     /**
      * 自然人名称
      */

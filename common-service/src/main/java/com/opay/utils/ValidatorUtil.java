@@ -1,5 +1,7 @@
 package com.opay.utils;
 
+import com.opay.exception.CustomerException;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -41,11 +43,11 @@ public class ValidatorUtil {
      * @return void
      */
     public static void validate(Object object, Class<?>... groups)
-            throws Exception {
+            throws CustomerException {
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
         if (!constraintViolations.isEmpty()) {
             ConstraintViolation<Object> constraint = (ConstraintViolation<Object>)constraintViolations.iterator().next();
-            throw new Exception(constraint.getMessage());
+            throw new CustomerException(constraint.getMessage());
         }
     }
 }

@@ -3,6 +3,8 @@ package com.opay.dao;
 import com.opay.entity.AccountDo;
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
+
 /**
  * <dl>
  * <dt><span class="strong">类说明:</span></dt>
@@ -49,4 +51,22 @@ public interface AccountDao {
      * @return void
      */
     void updateById(AccountDo accountDo) throws DataAccessException;
+
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>根据账户的id、身份证号、自然人名称查询账户信息列表</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-06 13:16 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param accountDo 账户数据对象
+     * @return java.util.List<com.opay.entity.AccountDo>
+     * @throws DataAccessException
+     */
+    List<AccountDo> listAccountByIdOrIdCardOrName(AccountDo accountDo) throws DataAccessException;
 }

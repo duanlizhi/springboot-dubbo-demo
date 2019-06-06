@@ -11,6 +11,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
+import java.util.List;
 
 /**
  * <dl>
@@ -38,13 +40,8 @@ public class AccountServiceImpl implements AccountService {
         boolean flag = true;
         try {
             ValidatorUtil.validate(accountDo);
-            try {
-                accountDao.save(accountDo);
-            } catch (DataAccessException e) {
-                flag = false;
-                logger.debug("保存账号信息：name:{},id_card:{},mobile_number: {}\r err: {}",accountDo.getName(),
-                        accountDo.getIdCard(),accountDo.getMobileNumber(),e.getMessage());
-            }
+            accountDao.save(accountDo);
+
         } catch (Exception e) {
             flag = false;
             logger.error("保存账号信息：name:{},id_card:{},mobile_number: {}\r err: {}",accountDo.getName(),
@@ -61,11 +58,44 @@ public class AccountServiceImpl implements AccountService {
         } catch (DataAccessException e) {
             flag = false;
             if(logger.isDebugEnabled()) {
-                logger.debug("保存账号信息：name:{},id_card:{},mobile_number: {}\r err: {}",accountDo.getName(),
+                logger.debug("更新账号信息：name:{},id_card:{},mobile_number: {}\r err: {}",accountDo.getName(),
                         accountDo.getIdCard(),accountDo.getMobileNumber(),e.getMessage());
             }
         }
         return flag;
+    }
+
+    @Override
+    public AccountDo getAccountByIdOrIdCard(Long accountId, String idCard) {
+        AccountDo account = new AccountDo();
+        account.setId(accountId);
+        account.setIdCard(idCard);
+        try {
+            List<AccountDo> accountDos = accountDao.listAccountByIdOrIdCardOrName(account);
+            if(null != accountDos && accountDos.size() > 0) {
+                return accountDos.get(0);
+            }
+        } catch (DataAccessException e) {
+            logger.error("获取单个账户信息失败，accountId: {},idCard: {},errMsg: {}",
+                    accountId,idCard,e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<AccountDo> listAccountByIdOrIdCardOrName(Long accountId, String idCard, String name) {
+        AccountDo account = new AccountDo();
+        account.setId(accountId);
+        account.setIdCard(idCard);
+        account.setName(name);
+        try {
+            List<AccountDo> accountDos = accountDao.listAccountByIdOrIdCardOrName(account);
+            return accountDos;
+        } catch (DataAccessException e) {
+            logger.error("获取账户列表信息失败，accountId: {},idCard: {}, name: {}, errMsg: {}",
+                    accountId,idCard,name,e.getMessage());
+        }
+        return null;
     }
 
     @Override

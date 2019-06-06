@@ -1,1 +1,6 @@
+com/opay/service/BankCardService.class
+com/opay/entity/TransactionRecordDo.class
 com/opay/utils/ValidatorUtil.class
+com/opay/service/AccountService.class
+com/opay/entity/AccountDo.class
+com/opay/entity/BankCardDo.class

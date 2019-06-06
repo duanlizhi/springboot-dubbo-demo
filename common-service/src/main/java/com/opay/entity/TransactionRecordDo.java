@@ -26,7 +26,11 @@ public class TransactionRecordDo implements Serializable {
     /**
      * 主键id
      */
-    private BigInteger id;
+    private Long id;
+    /**
+     * 交易单号，每一笔交易客户端生成一个交易编号
+     */
+    private String orderNo;
     /**
      * 交易类型（1:充值 2:转账）
      */
@@ -47,6 +51,18 @@ public class TransactionRecordDo implements Serializable {
      * 账户id
      */
     private BigInteger accountId;
+    /**
+     * 交易记录状态(0:处理中，1: 成功，2:失败)
+     */
+    private Integer status;
+    /**
+     * 交易发起者账户id
+     */
+    private Long fromAccountId;
+    /**
+     * 当前交易转给账户id
+     */
+    private Long toAccountId;
     /**
      * 创建时间
      */

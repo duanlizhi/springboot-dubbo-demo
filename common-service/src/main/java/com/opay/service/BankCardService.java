@@ -2,7 +2,6 @@ package com.opay.service;
 
 import com.opay.entity.BankCardDo;
 
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -50,7 +49,7 @@ public interface BankCardService {
      * @param cardNumber
      * @return java.lang.Boolean
      */
-    Boolean deleteCard(BigInteger cardId,String cardNumber);
+    Boolean deleteCard(Long cardId,String cardNumber);
 
     /**
      *
@@ -64,9 +63,26 @@ public interface BankCardService {
      * <dd> duan_lizhi</dd></dl>
      * </dl>
      * @param accountId 账户id
-     * @param name 自然人姓名
      * @param idCard 身份证号
      * @return java.util.List<com.opay.entity.BankCardDo>
      */
-    List<BankCardDo> listBankCard(BigInteger accountId,String name,String idCard);
+    List<BankCardDo> listBankCard(Long accountId,String idCard);
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>用一句话描述该方法的作用</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-06 13:55 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param accountId 账户id
+     * @param cardNumber 银行卡卡号
+     * @return com.opay.entity.BankCardDo
+     * @throws
+     */
+    BankCardDo getBankCard(Long accountId,String cardNumber);
 }
