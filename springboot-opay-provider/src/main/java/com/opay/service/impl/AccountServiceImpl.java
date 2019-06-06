@@ -11,7 +11,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * <dl>
@@ -35,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Override
-    public boolean save(AccountDo accountDo) {
+    public Boolean save(AccountDo accountDo) {
         boolean flag = true;
         try {
             ValidatorUtil.validate(accountDo);
@@ -55,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean update(AccountDo accountDo) {
+    public Boolean update(AccountDo accountDo) {
         boolean flag = true;
         try {
             accountDao.updateById(accountDo);
@@ -70,7 +69,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean saveAccount(String name) {
+    public Boolean saveAccount(String name) {
         System.out.println("服务调用>>> :" + name);
         return false;
     }

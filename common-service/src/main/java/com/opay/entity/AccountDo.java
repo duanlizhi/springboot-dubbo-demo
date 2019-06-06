@@ -1,12 +1,10 @@
 package com.opay.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -26,13 +24,11 @@ import java.util.Date;
  * @since 1.0
  */
 @Data
-@TableName("account")
 public class AccountDo implements Serializable {
     private static final long serialVersionUID = 6358112934600153550L;
     /**
      * 主键id
      */
-    @TableId
     private BigInteger id;
     /**
      * 自然人名称
@@ -52,7 +48,7 @@ public class AccountDo implements Serializable {
     /**
      * 手机号
      */
-    @Length(min = 11,max = 11,message = "手机号格式不正确，长度须为11位")
+    @Size(min = 11,max = 11,message = "手机号格式不正确，长度须为11位")
     private String mobileNumber;
     /**
      * 账户余额

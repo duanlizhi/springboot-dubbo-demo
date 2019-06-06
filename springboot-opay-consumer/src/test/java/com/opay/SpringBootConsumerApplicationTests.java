@@ -10,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,7 +32,7 @@ public class SpringBootConsumerApplicationTests {
 	@Test
 	public void testSaveAccount() {
 		AccountDo account = new AccountDo();
-		account.setIdCard("130102198603075954");
+		account.setIdCard("1301021986030759544545");
 		account.setName("wangwu");
 		account.setNickName("王五麻子");
 		account.setBalance(new BigDecimal(100));

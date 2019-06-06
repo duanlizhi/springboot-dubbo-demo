@@ -1,7 +1,5 @@
 package com.opay.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,14 +20,12 @@ import java.util.Date;
  * @author duan_lizhi
  * @since 1.0
  */
-@TableName("transaction_record")
 @Data
 public class TransactionRecordDo implements Serializable {
     private static final long serialVersionUID = 7288813630142969952L;
     /**
      * 主键id
      */
-    @TableId
     private BigInteger id;
     /**
      * 交易类型（1:充值 2:转账）

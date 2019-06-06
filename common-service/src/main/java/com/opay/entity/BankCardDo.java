@@ -1,9 +1,9 @@
 package com.opay.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
@@ -22,25 +22,27 @@ import java.util.Date;
  * @since 1.0
  */
 @Data
-@TableName("bank_card")
 public class BankCardDo implements Serializable {
     private static final long serialVersionUID = -9055213091615324518L;
     /**
      * 主键id
      */
-    @TableId
     private BigInteger id;
     /**
      * 开户行名称
      */
+    @NotNull(message = "开户行不能为空")
     private String bankName;
     /**
      * 银行卡号
      */
+    @Pattern(regexp = "^([1-9]{1})(\\d{14}|\\d{18})$",message = "")
+    @NotNull(message = "银行卡号不能为空")
     private String cardNumber;
     /**
      * 账户id
      */
+    @NotNull(message = "账户id不能为空")
     private BigInteger accountId;
     /**
      * 创建时间
