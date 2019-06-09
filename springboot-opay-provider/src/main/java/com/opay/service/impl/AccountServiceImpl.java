@@ -1,16 +1,20 @@
 package com.opay.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.opay.constant.ErrorEnum;
 import com.opay.dao.AccountDao;
 import com.opay.entity.AccountDo;
+import com.opay.exception.CustomerException;
 import com.opay.service.AccountService;
 import com.opay.utils.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -36,33 +40,37 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Override
-    public Boolean save(AccountDo accountDo) {
-        boolean flag = true;
+    @Transactional(rollbackFor = Exception.class)
+    public CustomerException save(AccountDo accountDo) {
         try {
             ValidatorUtil.validate(accountDo);
             accountDao.save(accountDo);
 
-        } catch (Exception e) {
-            flag = false;
+        } catch (CustomerException e) {
             logger.error("保存账号信息：name:{},id_card:{},mobile_number: {}\r err: {}",accountDo.getName(),
                     accountDo.getIdCard(),accountDo.getMobileNumber(),e.getMessage());
+            return CustomerException.builder().code(ErrorEnum.PARAMS_NOT_NULL.getCode())
+                    .msg(e.getMessage()).build();
         }
-        return flag;
+        return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode())
+                .msg(ErrorEnum.SUCCESS.getMsg()).build();
     }
 
     @Override
-    public Boolean update(AccountDo accountDo) {
-        boolean flag = true;
+    @Transactional(rollbackFor = Exception.class)
+    public CustomerException update(AccountDo accountDo) {
         try {
             accountDao.updateById(accountDo);
         } catch (DataAccessException e) {
-            flag = false;
             if(logger.isDebugEnabled()) {
                 logger.debug("更新账号信息：name:{},id_card:{},mobile_number: {}\r err: {}",accountDo.getName(),
                         accountDo.getIdCard(),accountDo.getMobileNumber(),e.getMessage());
             }
+            return CustomerException.builder().code(ErrorEnum.FAILED.getCode())
+                    .msg(ErrorEnum.FAILED.getMsg()).build();
         }
-        return flag;
+        return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode())
+                .msg(ErrorEnum.SUCCESS.getMsg()).build();
     }
 
     @Override
@@ -99,8 +107,40 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public boolean decrease(long fromAccountId, BigDecimal amount) {
+        boolean flag = false;
+        AccountDo accountDo = new AccountDo();
+        accountDo.setId(fromAccountId);
+        accountDo.setBalance(amount);
+        try {
+            accountDao.updateById(accountDo);
+            flag = true;
+        } catch (DataAccessException e) {
+            logger.info("扣减账户余额失败，fromAccountId：{}, amount: {}",fromAccountId,amount);
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean increase(long toAccountId, BigDecimal amount) {
+        boolean flag = false;
+        AccountDo accountDo = new AccountDo();
+        accountDo.setId(toAccountId);
+        accountDo.setBalance(amount);
+        try {
+            accountDao.updateById(accountDo);
+            flag = true;
+        } catch (DataAccessException e) {
+            logger.info("增加账户余额失败，fromAccountId：{}, amount: {}",toAccountId,amount);
+        }
+        return flag;
+    }
+
+    @Override
     public Boolean saveAccount(String name) {
         System.out.println("服务调用>>> :" + name);
         return false;
     }
+
+
 }

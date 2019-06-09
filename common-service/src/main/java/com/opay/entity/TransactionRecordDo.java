@@ -2,9 +2,10 @@ package com.opay.entity;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -30,27 +31,28 @@ public class TransactionRecordDo implements Serializable {
     /**
      * 交易单号，每一笔交易客户端生成一个交易编号
      */
+    @NotNull(message = "交易单号不能为空")
     private String orderNo;
     /**
      * 交易类型（1:充值 2:转账）
      */
+    @NotNull(message = "交易类型不能为空")
     private Integer type;
     /**
      * 转账渠道（1:余额 2:银行卡）
      */
+    @NotNull(message = "交易渠道不能为空")
     private Integer channel;
     /**
      * 当交易渠道为2时，标注使用的是哪张银行卡
      */
-    private BigInteger bank_card_id;
+    private Long bankCardId;
     /**
      * 交易金额
      */
+    @NotNull(message = "交易金额不能为空")
+    @Min(value = 0, message = "交易金额最小为0")
     private BigDecimal amount;
-    /**
-     * 账户id
-     */
-    private BigInteger accountId;
     /**
      * 交易记录状态(0:处理中，1: 成功，2:失败)
      */
@@ -58,10 +60,12 @@ public class TransactionRecordDo implements Serializable {
     /**
      * 交易发起者账户id
      */
+    @NotNull(message = "交易发起账户不能为空")
     private Long fromAccountId;
     /**
      * 当前交易转给账户id
      */
+    @NotNull(message = "交易目的账户不能为空")
     private Long toAccountId;
     /**
      * 创建时间

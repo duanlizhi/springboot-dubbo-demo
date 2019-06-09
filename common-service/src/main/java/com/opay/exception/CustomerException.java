@@ -1,9 +1,8 @@
 package com.opay.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+
+import java.io.Serializable;
 
 /**
  * <dl>
@@ -18,10 +17,9 @@ import lombok.RequiredArgsConstructor;
  * @author duan_lizhi
  * @since 1.0
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class CustomerException extends RuntimeException {
+@Builder
+public class CustomerException extends RuntimeException implements Serializable {
+    private static final long serialVersionUID = -2203651793109061095L;
     private String msg;
-//    private int code = 500;
+    private int code;
 }

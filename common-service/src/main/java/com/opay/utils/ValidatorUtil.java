@@ -47,7 +47,7 @@ public class ValidatorUtil {
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
         if (!constraintViolations.isEmpty()) {
             ConstraintViolation<Object> constraint = (ConstraintViolation<Object>)constraintViolations.iterator().next();
-            throw new CustomerException(constraint.getMessage());
+            throw CustomerException.builder().msg(constraint.getMessage()).build();
         }
     }
 }

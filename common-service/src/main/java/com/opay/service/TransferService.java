@@ -1,6 +1,8 @@
 package com.opay.service;
 
 import com.opay.entity.TransactionRecordDo;
+import com.opay.entity.TransferDTO;
+import com.opay.exception.CustomerException;
 
 /**
  * <dl>
@@ -27,9 +29,9 @@ public interface TransferService {
      * <dl><dt><span class="strong">author:</span></dt>
      * <dd> duan_lizhi</dd></dl>
      * </dl>
-     * @param transactionRecord 转账记录数据对象
+     * @param transferDTO 转账记录数据对象
      * @return com.opay.entity.TransactionRecordDo
      * @throws
      */
-    TransactionRecordDo transfer(TransactionRecordDo transactionRecord);
+    CustomerException transfer(TransferDTO transferDTO);
 }

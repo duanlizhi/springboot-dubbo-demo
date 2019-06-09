@@ -1,5 +1,8 @@
 package com.opay.constant;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * <dl>
  * <dt><span class="strong">类说明:</span></dt>
@@ -13,6 +16,8 @@ package com.opay.constant;
  * @author duan_lizhi
  * @since 1.0
  */
+@Getter
+@AllArgsConstructor
 public enum TransferStatusEnum {
     /**
      * 交易处理中状态
@@ -29,17 +34,4 @@ public enum TransferStatusEnum {
 
     private final int code;
     private final String value;
-
-    TransferStatusEnum(int code, String value) {
-        this.value = value;
-        this.code = code;
-    }
-
-    public String value() {
-        return value;
-    }
-
-    public int getCode() {
-        return code;
-    }
 }

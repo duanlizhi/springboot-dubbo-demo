@@ -1,7 +1,9 @@
 package com.opay.service;
 
 import com.opay.entity.AccountDo;
+import com.opay.exception.CustomerException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -45,9 +47,9 @@ public interface AccountService {
      * <dd> duan_lizhi</dd></dl>
      * </dl>
      * @param accountDo 账户数据对象
-     * @return boolean
+     * @return com.opay.exception.CustomerException
      */
-    Boolean save(AccountDo accountDo);
+    CustomerException save(AccountDo accountDo);
     /**
      *
      * <dl>
@@ -60,9 +62,9 @@ public interface AccountService {
      * <dd> duan_lizhi</dd></dl>
      * </dl>
      * @param accountDo 账户数据对象
-     * @return boolean
+     * @return com.opay.exception.CustomerException
      */
-    Boolean update(AccountDo accountDo);
+    CustomerException update(AccountDo accountDo);
 
     /**
      *
@@ -99,4 +101,40 @@ public interface AccountService {
      * @throws
      */
     List<AccountDo> listAccountByIdOrIdCardOrName(Long accountId, String idCard, String name);
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>扣减账户余额</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-09 18:25 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param fromAccountId 发起者账户id
+     * @param amount 更新余额金额
+     * @return boolean
+     * @throws
+     */
+    boolean decrease(long fromAccountId, BigDecimal amount);
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>用一句话描述该方法的作用</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-09 18:27 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param toAccountId 增加账户余额
+     * @param amount 更新余额金额
+     * @return boolean
+     * @throws
+     */
+    boolean increase(long toAccountId, BigDecimal amount);
 }

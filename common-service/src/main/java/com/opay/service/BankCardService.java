@@ -1,6 +1,7 @@
 package com.opay.service;
 
 import com.opay.entity.BankCardDo;
+import com.opay.exception.CustomerException;
 
 import java.util.List;
 
@@ -30,9 +31,9 @@ public interface BankCardService {
      * <dd> duan_lizhi</dd></dl>
      * </dl>
      * @param bankCard 银行卡数据对象
-     * @return boolean
+     * @return com.opay.exception.CustomerException
      */
-    Boolean saveBindCard(BankCardDo bankCard);
+    CustomerException saveBindCard(BankCardDo bankCard);
 
     /**
      *
@@ -45,11 +46,11 @@ public interface BankCardService {
      * <dl><dt><span class="strong">author:</span></dt>
      * <dd> duan_lizhi</dd></dl>
      * </dl>
-     * @param cardId
-     * @param cardNumber
-     * @return java.lang.Boolean
+     * @param cardId 银行卡卡片id
+     * @param cardNumber 银行卡号
+     * @return com.opay.exception.CustomerException
      */
-    Boolean deleteCard(Long cardId,String cardNumber);
+    CustomerException deleteCard(Long cardId,String cardNumber);
 
     /**
      *

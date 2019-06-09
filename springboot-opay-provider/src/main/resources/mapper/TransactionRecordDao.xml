@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.opay.dao.TransactionRecordDao">
+    <resultMap id="transactionRecordResultMap" type="com.opay.entity.TransactionRecordDo">
+        <id column="id" property="id"></id>
+        <result column="order_no" property="orderNo"></result>
+        <result column="type" property="type"></result>
+        <result column="channel" property="channel"></result>
+        <result column="bank_card_id" property="bankCardId"></result>
+        <result column="amount" property="amount"></result>
+        <result column="status" property="status"></result>
+        <result column="status" property="status"></result>
+        <result column="from_account_id" property="fromAccountId"></result>
+        <result column="to_account_id" property="toAccountId"></result>
+        <result column="gmt_create" property="gmtCreate"></result>
+        <result column="gmt_modified" property="gmtModified"></result>
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.opay.entity.TransactionRecordDo">
+        insert into transaction_record(order_no,type,channel,bank_card_id,amount,
+        status,from_account_id,to_account_id)
+            values(#{orderNo},#{type},#{channel},#{bankCardId},#{amount},
+            #{status},#{fromAccountId},#{toAccountId})
+    </insert>
+    <update id="updateByIdOrOrderNo" parameterType="com.opay.entity.TransactionRecordDo">
+        update table transaction_record
+            <set>
+                <if test="orderNo != null">
+                    order_no = #{orderNo},
+                </if>
+                <if test="type != null">
+                    type = #{type},
+                </if>
+                <if test="channel != null">
+                    channel = #{channel},
+                </if>
+                <if test="bankCardId != null">
+                    bank_card_id = #{bankCardId},
+                </if>
+                <if test="amount != null">
+                    amount = #{amount}
+                </if>
+                <if test="status != null">
+                    status = #{status}
+                </if>
+                <if test="fromAccountId != null">
+                    from_account_id = #{fromAccountId}
+                </if>
+                <if test="toAccountId != null">
+                    to_account_id = #{toAccountId}
+                </if>
+            </set>
+    </update>
+    <select id="listTransactionRecord" parameterType="com.opay.entity.TransactionRecordDo" resultMap="transactionRecordResultMap">
+        SELECT
+            tr.id,
+            tr.type,
+            tr.order_no,
+            tr.amount,
+            tr.bank_card_id,
+            tr.channel,
+            tr.`status`,
+            tr.from_account_id,
+            tr.to_account_id,
+            tr.gmt_create
+        FROM
+            transaction_record tr
+        <where>
+            <if test="fromAccountId != null">
+                tr.from_account_id = #{fromAccountId}
+            </if>
+            <if test="type != null">
+                AND tr.type = #{type}
+            </if>
+            <if test="status != null">
+                AND tr.`status`= #{status}
+            </if>
+            <if test="orderNo != null">
+                AND tr.order_no = #{orderNo}
+            </if>
+        </where>
+    </select>
+</mapper>

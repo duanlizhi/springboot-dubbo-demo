@@ -3,7 +3,7 @@
 <mapper namespace="com.opay.dao.AccountDao">
 
     <resultMap id="accountResultMap" type="com.opay.entity.AccountDo">
-        <result column="id" property="id"></result>
+        <id column="id" property="id"></id>
         <result column="name" property="name"></result>
         <result column="id_card" property="idCard"></result>
         <result column="nick_name" property="nickName"></result>
