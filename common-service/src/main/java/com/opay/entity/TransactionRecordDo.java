@@ -1,5 +1,7 @@
 package com.opay.entity;
 
+import com.opay.group.Charge;
+import com.opay.group.Transfer;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -31,17 +33,17 @@ public class TransactionRecordDo implements Serializable {
     /**
      * 交易单号，每一笔交易客户端生成一个交易编号
      */
-    @NotNull(message = "交易单号不能为空")
+    @NotNull(message = "交易单号不能为空", groups = {Transfer.class, Charge.class})
     private String orderNo;
     /**
      * 交易类型（1:充值 2:转账）
      */
-    @NotNull(message = "交易类型不能为空")
+    @NotNull(message = "交易类型不能为空", groups = {Transfer.class, Charge.class})
     private Integer type;
     /**
      * 转账渠道（1:余额 2:银行卡）
      */
-    @NotNull(message = "交易渠道不能为空")
+    @NotNull(message = "交易渠道不能为空", groups = {Transfer.class, Charge.class})
     private Integer channel;
     /**
      * 当交易渠道为2时，标注使用的是哪张银行卡
@@ -51,7 +53,7 @@ public class TransactionRecordDo implements Serializable {
      * 交易金额
      */
     @NotNull(message = "交易金额不能为空")
-    @Min(value = 0, message = "交易金额最小为0")
+    @Min(value = 0, message = "交易金额最小为0", groups = {Transfer.class, Charge.class})
     private BigDecimal amount;
     /**
      * 交易记录状态(0:处理中，1: 成功，2:失败)
@@ -60,12 +62,12 @@ public class TransactionRecordDo implements Serializable {
     /**
      * 交易发起者账户id
      */
-    @NotNull(message = "交易发起账户不能为空")
+    @NotNull(message = "交易发起账户不能为空", groups = {Transfer.class, Charge.class})
     private Long fromAccountId;
     /**
      * 当前交易转给账户id
      */
-    @NotNull(message = "交易目的账户不能为空")
+    @NotNull(message = "交易目的账户不能为空", groups = {Transfer.class})
     private Long toAccountId;
     /**
      * 创建时间

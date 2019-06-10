@@ -1,6 +1,7 @@
 package com.opay.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.opay.constant.ErrorEnum;
 import com.opay.dao.TransactionRecordDao;
 import com.opay.entity.TransactionRecordDo;
 import com.opay.exception.CustomerException;
@@ -32,19 +33,20 @@ public class TransactionRecordServiceImpl implements TransactionRecordService {
     @Resource
     private TransactionRecordDao transactionRecordDao;
     @Override
-    public Boolean save(TransactionRecordDo transactionRecordDo) {
-        boolean flag = false;
+    public CustomerException save(TransactionRecordDo transactionRecordDo) {
         try {
             ValidatorUtil.validate(transactionRecordDo);
             transactionRecordDao.save(transactionRecordDo);
-            flag = true;
         } catch (CustomerException e) {
             log.info("保存交易记录失败：交易单号：{}, 交易发起人id：{}, 交易类型：{}, 交易状态： {},交易金额： {}, " +
                     "errMsg: {}", transactionRecordDo.getOrderNo(),transactionRecordDo.getFromAccountId(),
                     transactionRecordDo.getType(),transactionRecordDo.getStatus(),transactionRecordDo.getAmount(),
-                    e.getMessage());
+                    e.getMsg());
+            return CustomerException.builder().code(ErrorEnum.PARAMS_NOT_NULL.getCode())
+                    .msg(e.getMsg()).build();
         }
-        return flag;
+        return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode())
+                .msg(ErrorEnum.SUCCESS.getMsg()).build();
     }
 
     @Override

@@ -18,6 +18,8 @@ import java.io.Serializable;
  * @since 1.0
  */
 @Builder
+@ToString
+@Getter
 public class CustomerException extends RuntimeException implements Serializable {
     private static final long serialVersionUID = -2203651793109061095L;
     private String msg;

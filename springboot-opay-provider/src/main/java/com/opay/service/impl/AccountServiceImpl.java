@@ -48,9 +48,9 @@ public class AccountServiceImpl implements AccountService {
 
         } catch (CustomerException e) {
             logger.error("保存账号信息：name:{},id_card:{},mobile_number: {}\r err: {}",accountDo.getName(),
-                    accountDo.getIdCard(),accountDo.getMobileNumber(),e.getMessage());
+                    accountDo.getIdCard(),accountDo.getMobileNumber(),e.getMsg());
             return CustomerException.builder().code(ErrorEnum.PARAMS_NOT_NULL.getCode())
-                    .msg(e.getMessage()).build();
+                    .msg(e.getMsg()).build();
         }
         return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode())
                 .msg(ErrorEnum.SUCCESS.getMsg()).build();

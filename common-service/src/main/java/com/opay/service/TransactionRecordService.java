@@ -1,6 +1,7 @@
 package com.opay.service;
 
 import com.opay.entity.TransactionRecordDo;
+import com.opay.exception.CustomerException;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public interface TransactionRecordService {
      * @return boolean
      * @throws
      */
-    Boolean save(TransactionRecordDo transactionRecordDo);
+    CustomerException save(TransactionRecordDo transactionRecordDo);
 
     /**
      *

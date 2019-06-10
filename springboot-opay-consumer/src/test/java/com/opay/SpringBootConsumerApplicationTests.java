@@ -55,7 +55,7 @@ public class SpringBootConsumerApplicationTests {
 	@Test
 	public void testSaveAccount() {
 		AccountDo account = new AccountDo();
-		account.setIdCard("1301021986030759544545");
+		account.setIdCard("13011021986030759544545");
 		account.setName("wangwu");
 		account.setNickName("王五麻子");
 		account.setBalance(new BigDecimal(100));
@@ -101,10 +101,10 @@ public class SpringBootConsumerApplicationTests {
 		transferDTO.setAmount(new BigDecimal(100));
 		transferDTO.setChannel(TransferChannelEnum.BANKCARD_CHANNEL.getValue());
 		transferDTO.setType(TransferTypeEnum.DEPOSIT.getNum());
-		transferDTO.setOrderNo("3453454354");
+		transferDTO.setOrderNo("3453456789");
 		transferDTO.setBankCardId(1L);
 		CustomerException customerException = bankCardTransfer.transfer(transferDTO);
-		System.out.println(customerException.toString());
+		System.out.println(customerException);
 	}
 
 	/**
@@ -130,8 +130,14 @@ public class SpringBootConsumerApplicationTests {
 	public void testQueryAccountBalanceAndTransferRecord() {
 		//查询id为1的账户余额
 		long accountId = 1L;
+		long accountId2 = 2L;
+		printAccountBalanceAndRecord(accountId);
+		printAccountBalanceAndRecord(accountId2);
+	}
+
+	private void printAccountBalanceAndRecord(long accountId) {
 		AccountDo accountByIdOrIdCard = accountService.getAccountByIdOrIdCard(accountId, null);
-		System.out.println("账户余额为：" + accountByIdOrIdCard.getBalance());
+		System.out.println("账户id: " + accountId+ "余额为：" + accountByIdOrIdCard.getBalance());
 		TransactionRecordDo transactionRecord = new TransactionRecordDo();
 		transactionRecord.setFromAccountId(accountId);
 		transactionRecord.setType(TransferTypeEnum.TRANSFER.getNum());
@@ -141,6 +147,7 @@ public class SpringBootConsumerApplicationTests {
 				System.out.println(transactionRecordDo);
 			}
 		}
+		System.out.println("-------------------------------------");
 	}
 
 }

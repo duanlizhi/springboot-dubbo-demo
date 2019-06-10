@@ -8,6 +8,7 @@ import com.opay.entity.AccountDo;
 import com.opay.entity.TransactionRecordDo;
 import com.opay.entity.TransferDTO;
 import com.opay.exception.CustomerException;
+import com.opay.group.Charge;
 import com.opay.service.AccountService;
 import com.opay.service.TransactionRecordService;
 import com.opay.service.TransferService;
@@ -48,10 +49,10 @@ public class BankCardTransferServiceImpl implements TransferService {
                 transferDTO.getFromAccountId(),transferDTO.getBankCardId(),
                 transferDTO.getType(),transferDTO.getOrderNo());
         try {
-            ValidatorUtil.validate(transferDTO);
+            ValidatorUtil.validate(transferDTO, Charge.class);
 
         } catch (CustomerException e) {
-            log.info("使用银行卡进行交易校验失败, errMsg: {}",e.getMessage());
+            log.info("使用银行卡进行交易校验失败, errMsg: {}",e.getMsg());
             return CustomerException.builder().code(ErrorEnum.PARAMS_NOT_NULL.getCode())
                     .msg(ErrorEnum.PARAMS_NOT_NULL.getMsg()).build();
         }
@@ -84,8 +85,10 @@ public class BankCardTransferServiceImpl implements TransferService {
             transactionRecord.setChannel(transferDTO.getChannel());
             transactionRecord.setAmount(transferDTO.getAmount());
             transactionRecord.setBankCardId(transferDTO.getBankCardId());
-            transactionRecordService.save(transactionRecord);
-
+            CustomerException customerException = transactionRecordService.save(transactionRecord);
+            if(customerException.getCode() != ErrorEnum.SUCCESS.getCode()) {
+                return customerException;
+            }
             //现实中跟银行进行通信，使用异步任务去处理，后期更新订单，这里直接更新充值成功
             TransactionRecordDo transactionRecord_new = new TransactionRecordDo();
             transactionRecord_new.setOrderNo(transferDTO.getOrderNo());
@@ -98,6 +101,7 @@ public class BankCardTransferServiceImpl implements TransferService {
             }
             transactionRecord_update.setStatus(TransferStatusEnum.SUCCESS.getCode());
             transactionRecordService.updateByIdOrOrderNo(transactionRecord_update);
+            accountService.increase(transferDTO.getFromAccountId(),account.getBalance().add(transferDTO.getAmount()));
             return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode())
                     .msg(ErrorEnum.SUCCESS.getMsg()).build();
         } finally {

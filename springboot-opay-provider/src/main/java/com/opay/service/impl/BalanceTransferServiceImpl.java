@@ -8,6 +8,7 @@ import com.opay.entity.AccountDo;
 import com.opay.entity.TransactionRecordDo;
 import com.opay.entity.TransferDTO;
 import com.opay.exception.CustomerException;
+import com.opay.group.Transfer;
 import com.opay.service.AccountService;
 import com.opay.service.TransactionRecordService;
 import com.opay.service.TransferService;
@@ -49,10 +50,10 @@ public class BalanceTransferServiceImpl implements TransferService {
                 transferDTO.getFromAccountId(),transferDTO.getToAccountId(),
                 transferDTO.getType(),transferDTO.getOrderNo());
         try {
-            ValidatorUtil.validate(transferDTO);
+            ValidatorUtil.validate(transferDTO, Transfer.class);
 
         } catch (CustomerException e) {
-            log.info("使用账户余额进行交易校验失败, errMsg: {}",e.getMessage());
+            log.info("使用账户余额进行交易校验失败, errMsg: {}",e.getMsg());
             return CustomerException.builder().code(ErrorEnum.PARAMS_NOT_NULL.getCode())
                     .msg(ErrorEnum.PARAMS_NOT_NULL.getMsg()).build();
         }
