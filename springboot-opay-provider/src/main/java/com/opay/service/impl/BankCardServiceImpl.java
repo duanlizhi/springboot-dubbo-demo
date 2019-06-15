@@ -69,10 +69,10 @@ public class BankCardServiceImpl implements BankCardService {
             logger.info("新增银行卡失败：所属账户id：{},开户行：{},银行卡号：{}, errMsg: {}",bankCard.getAccountId(),
                     bankCard.getBankName(),bankCard.getCardNumber(), e.getMessage());
             return CustomerException.builder().code(ErrorEnum.PARAMS_NOT_NULL.getCode())
-                    .msg(ErrorEnum.PARAMS_NOT_NULL.getMsg()).build();
+                    .msg(e.getMsg()).build();
         }
         return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode())
-                .msg(ErrorEnum.SUCCESS.getMsg()).build();
+                .msg(ErrorEnum.SUCCESS.getMsg()).data(bankCard).build();
     }
 
     @Override
@@ -103,5 +103,10 @@ public class BankCardServiceImpl implements BankCardService {
                     accountId,cardNumber,e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public Boolean deleteAll() {
+        return bankCardDao.deleteAll();
     }
 }

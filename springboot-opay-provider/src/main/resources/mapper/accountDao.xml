@@ -13,7 +13,7 @@
         <result column="gmt_modified" property="gmtModified"></result>
     </resultMap>
 
-    <insert id="save" parameterType="com.opay.entity.AccountDo">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.opay.entity.AccountDo">
         insert into account (name,id_card,nick_name,mobile_number,balance)
         values (#{name},#{idCard},#{nickName},#{mobileNumber},#{balance})
     </insert>
@@ -62,4 +62,7 @@
             </if>
         </where>
     </select>
+    <delete id="deleteAll">
+        DELETE FROM account
+    </delete>
 </mapper>

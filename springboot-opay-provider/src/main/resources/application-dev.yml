@@ -37,5 +37,16 @@ spring:
   # dubbo 配置 指定zk注册中心
   dubbo:
     server: true
-    registry: zookeeper://127.0.0.1:2181
-#    registry: zookeeper://124.156.112.148:2181
+    #可以统一指定，也可以针对某个服务或者方法指定
+    #指定负载均衡算法，可以在提供者端指定，也可以在消费者端指定
+    #内置负载均衡算法：random：随机算法，默认；roundrobin：轮询算法。按照权重，在服务端指定；leastactive：最少活跃度算法；consistenthash：一致性hash算法
+#    loadbalance: roundrobin
+#    registry: zookeeper://127.0.0.1:2181
+    registry:
+      address: zookeeper://124.156.112.148:2181
+    #声明要使用的协议及端口，默认为dubbo协议，tcp 长连接，可以声明一个服务多种协议支持，消费者消费的时候可以指定使用哪个协议
+    #其他协议：rmi:tcp短连接，hession：http短连接，http：http短连接，webService：http短连接
+    #thrift，memcached、redis、rest
+    protocol:
+#      name: dubbo
+#      port: 56432

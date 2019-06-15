@@ -14,8 +14,10 @@ import com.opay.service.TransactionRecordService;
 import com.opay.service.TransferService;
 import com.opay.utils.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -117,7 +119,13 @@ public class BalanceTransferServiceImpl implements TransferService {
             }
             return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode()).
                     msg(ErrorEnum.SUCCESS.getMsg()).build();
-        } finally {
+        } catch (DataAccessException e) {
+            log.info("用户余额转账失败，交易单号：{},fromAccountId：{}, toAccountId: {},转账金额：{}, errMsg: {}",
+                    transferDTO.getOrderNo(),transferDTO.getFromAccountId(),transferDTO.getToAccountId(),
+                    transferDTO.getAmount(),e.getMessage());
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return CustomerException.builder().code(ErrorEnum.FAILED.getCode()).msg(ErrorEnum.FAILED.getMsg()).build();
+        }finally {
             lock.unlock();
         }
     }

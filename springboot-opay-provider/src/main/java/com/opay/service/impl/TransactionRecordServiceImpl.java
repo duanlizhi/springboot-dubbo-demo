@@ -82,4 +82,9 @@ public class TransactionRecordServiceImpl implements TransactionRecordService {
                 transactionRecordDo.getFromAccountId(),transactionRecordDo.getType(),transactionRecordDo.getStatus());
         return transactionRecordDao.listTransactionRecord(transactionRecordDo);
     }
+
+    @Override
+    public Boolean deleteAll() {
+        return transactionRecordDao.deleteAll();
+    }
 }

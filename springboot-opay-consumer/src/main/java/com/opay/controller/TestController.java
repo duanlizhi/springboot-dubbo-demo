@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-    @Reference
-    private AccountService accountService;
-
-    @RequestMapping("/test")
-    public String test() {
-        accountService.saveAccount("段立志");
-        return "哈哈哈哈啦啦啦啦";
-    }
+//    @Reference(check = false)
+//    private AccountService accountService;
+//
+//    @RequestMapping("/test")
+//    public String test() {
+//        accountService.saveAccount("段立志");
+//        return "哈哈哈哈啦啦啦啦";
+//    }
 }

@@ -35,7 +35,8 @@ public enum ErrorEnum {
     PARAMS_NOT_NULL(10003,"参数校验失败"),
     REPEAT_COMMIT(10004,"交易订单重复提交"),
     ORDER_NO_QUERY(10005,"为查询到订单信息"),
-    BANKCARD_REPEAT(10006,"银行卡信息重复绑定");
+    BANKCARD_REPEAT(10006,"银行卡信息重复绑定"),
+    ID_CARD_EXIT(10007,"该身份证号已经存在");
     private final int code;
     private final String msg;
 

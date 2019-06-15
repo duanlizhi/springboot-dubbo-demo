@@ -69,4 +69,21 @@ public interface AccountDao {
      * @throws DataAccessException
      */
     List<AccountDo> listAccountByIdOrIdCardOrName(AccountDo accountDo) throws DataAccessException;
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>删除全部信息</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-14 13:59 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param
+     * @return boolean
+     * @throws
+     */
+    boolean deleteAll();
 }

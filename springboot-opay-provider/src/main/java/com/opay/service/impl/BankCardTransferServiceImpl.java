@@ -3,7 +3,6 @@ package com.opay.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.opay.constant.ErrorEnum;
 import com.opay.constant.TransferStatusEnum;
-import com.opay.constant.TransferTypeEnum;
 import com.opay.entity.AccountDo;
 import com.opay.entity.TransactionRecordDo;
 import com.opay.entity.TransferDTO;
@@ -14,8 +13,10 @@ import com.opay.service.TransactionRecordService;
 import com.opay.service.TransferService;
 import com.opay.utils.ValidatorUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.concurrent.locks.Lock;
@@ -104,7 +105,12 @@ public class BankCardTransferServiceImpl implements TransferService {
             accountService.increase(transferDTO.getFromAccountId(),account.getBalance().add(transferDTO.getAmount()));
             return CustomerException.builder().code(ErrorEnum.SUCCESS.getCode())
                     .msg(ErrorEnum.SUCCESS.getMsg()).build();
-        } finally {
+        } catch (DataAccessException e) {
+            log.info("银行卡充值失败，交易单号：{},充值用户id：{}, 充值金额：{}, errMsg: {}",transferDTO.getOrderNo(),
+                    transferDTO.getFromAccountId(),transferDTO.getAmount(),e.getMessage());
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return CustomerException.builder().code(ErrorEnum.FAILED.getCode()).msg(ErrorEnum.FAILED.getMsg()).build();
+        }finally {
             lock.unlock();
         }
     }

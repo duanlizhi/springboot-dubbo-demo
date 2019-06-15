@@ -81,4 +81,7 @@
             </if>
         </where>
     </select>
+    <delete id="deleteAll">
+        DELETE FROM transaction_record
+    </delete>
 </mapper>

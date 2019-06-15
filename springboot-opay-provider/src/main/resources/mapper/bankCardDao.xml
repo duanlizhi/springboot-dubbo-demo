@@ -67,4 +67,7 @@
                 </if>
             </where>
     </select>
+    <delete id="deleteAll">
+        DELETE FROM bank_card
+    </delete>
 </mapper>

@@ -137,4 +137,21 @@ public interface AccountService {
      * @throws
      */
     boolean increase(long toAccountId, BigDecimal amount);
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>删除所有的数据</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-14 14:02 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param
+     * @return boolean
+     * @throws
+     */
+    Boolean deleteAll();
 }

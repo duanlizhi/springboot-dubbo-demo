@@ -68,4 +68,21 @@ public interface TransactionRecordDao {
      * @throws
      */
     List<TransactionRecordDo> listTransactionRecord(TransactionRecordDo transactionRecord);
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>删除所有</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-14 14:05 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param
+     * @return java.lang.Boolean
+     * @throws
+     */
+    Boolean deleteAll();
 }

@@ -40,6 +40,7 @@ public class TransactionRecordDo implements Serializable {
      */
     @NotNull(message = "交易类型不能为空", groups = {Transfer.class, Charge.class})
     private Integer type;
+
     /**
      * 转账渠道（1:余额 2:银行卡）
      */

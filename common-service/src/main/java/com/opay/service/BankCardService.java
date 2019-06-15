@@ -86,4 +86,21 @@ public interface BankCardService {
      * @throws
      */
     BankCardDo getBankCard(Long accountId,String cardNumber);
+
+    /**
+     *
+     * <dl>
+     * <dt><span class="strong">方法说明:</span></dt>
+     * <dd>用一句话描述该方法的作用</dd>
+     * </dl>
+     * <dl><dt><span class="strong">创建时间:</span></dt>
+     * <dd> 2019-06-14 14:09 </dd></dl>
+     * <dl><dt><span class="strong">author:</span></dt>
+     * <dd> duan_lizhi</dd></dl>
+     * </dl>
+     * @param
+     * @return java.lang.Boolean
+     * @throws
+     */
+    Boolean deleteAll();
 }
